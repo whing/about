@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应翻转名片</title>
+    <style>
+        <!-- body, html { -->
+            <!-- margin: 0; -->
+            <!-- padding: 0; -->
+            <!-- height: 100%; -->
+            <!-- display: flex; -->
+            <!-- align-items: center; -->
+            <!-- justify-content: center; -->
+            <!-- background-color: #f5f5f5; -->
+        <!-- } -->
+
+        <!-- .card { -->
+            <!-- transition: transform 0.6s, width 0.6s, height 0.6s; -->
+            <!-- transform-style: preserve-3d; -->
+            <!-- position: absolute; -->
+            <!-- top: 50%; -->
+            <!-- left: 50%; -->
+            <!-- width: 300px; /* 初始名片宽度 */ -->
+            <!-- height: 200px; /* 初始名片高度 */ -->
+            <!-- transform: translate(-50%, -50%); -->
+            <!-- cursor: pointer; -->
+        <!-- } -->
+
+        <!-- .card.flipped { -->
+            <!-- transform: translate(-50%, -50%) rotateY(180deg); -->
+            <!-- width: 400px; /* 翻转后名片宽度 */ -->
+            <!-- height: 800px; /* 翻转后名片高度 */ -->
+        <!-- } -->
+		body, html {
+			margin: 0;
+			padding: 0;
+			height: 100%; /* 确保填充整个视口 */
+			width: 100%; /* 确保填充整个视口宽度 */
+			display: flex;
+			align-items: center; /* 垂直居中 */
+			justify-content: center; /* 水平居中 */
+			background-color: #f5f5f5;
+		}
+
+		.card {
+			transition: transform 0.6s, width 0.6s, height 0.6s;
+			transform-style: preserve-3d;
+			position: relative; /* 使用flex居中，相对定位 */
+			width: 400px; /* 初始名片宽度 */
+			height: 300px; /* 初始名片高度 */
+			transform: rotateY(0deg); /* 初始化transform */
+			cursor: pointer;
+			/* 其他样式... */
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.card.flipped {
+			transform: rotateY(180deg);
+			width: 800px; /* 翻转后名片宽度 */
+			height: 1000px; /* 翻转后名片高度 */
+			/* 注意这里没有 translate，因为父元素已经居中了 */
+		}
+
+        .card > div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #fff;
+            color: #444;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+
+        .front {
+            /* 正面样式 */
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            /* 背面样式 */
+            background-color: #009688;
+            color: #fff;
+        }
+
+        img {
+            width: 200px; /* 头像尺寸 */
+            height: 200px; /* 头像尺寸 */
+            border-radius: 50%;
+            object-fit: cover;
+			margin-top: -200px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="card">
+        <div class="front">
+            <!-- 正面内容 -->
+            <img src="https://via.placeholder.com/200" alt="Avatar">
+            <h2>张三</h2>
+            <p>Web Developer</p>
+            <p>Beijing, China</p>
+        </div>
+        <div class="back">
+            <!-- 背面内容 -->
+            <h2>Contact Info</h2>
+            <p>Email: zhangsan@example.com</p>
+            <p>Phone: +86 123 4567 8901</p>
+            <p>LinkedIn: linkedin.com/in/zhangsan</p>
+        </div>
+    </div>
+
+    <script>
+        var card = document.getElementById('card');
+
+        // 点击卡片时的处理
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>
